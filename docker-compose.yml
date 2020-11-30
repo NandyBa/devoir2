@@ -1,0 +1,21 @@
+version: "3"
+services:
+  db:
+    image: "postgres"
+    environment:
+      POSTGRES_USER: secret_user
+      POSTGRES_PASSWORD: secret_password
+      POSTGRES_DB: db
+    ports:
+      - "5432:5432"
+  manager:
+    # restart: always
+    build: .
+    depends_on:
+      - db
+    environment:
+      POSTGRES_USER: secret_user
+      POSTGRES_PASSWORD: secret_password
+      POSTGRES_DB: db
+      CSV_FILENAME: "data.csv"
+    
